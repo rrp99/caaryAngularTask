@@ -1,0 +1,216 @@
+<div class="main">
+  <div class="main_container">
+    <div class="main_container--title">
+      <img src="assets/images/png/caaryLogo.png" alt="caary" />
+    </div>
+    <form class="main_container--form" [formGroup]="signUpFG">
+      <div class="main_container--form--heading">
+        <div class="main_container--form--heading--title">Name & Email</div>
+        <div class="main_container--form--heading--line"></div>
+        <div class="main_container--form--heading--step">1</div>
+      </div>
+      <div class="input">
+        <div class="form__field">
+          <p>Legal First Name</p>
+          <input type="text" formControlName="firstName" />
+          <div
+            class="validate"
+            [style.display]="
+              signUpFG.get('firstName')?.touched &&
+              signUpFG.get('firstName')?.hasError('required')
+                ? 'block'
+                : 'none'
+            "
+          >
+            This is a required field
+          </div>
+        </div>
+        <div class="form__field">
+          <p>Legal Last Name</p>
+          <input type="text" formControlName="lastName" autocomplete="on" />
+          <div
+            class="validate"
+            [style.display]="
+              signUpFG.get('lastName')?.touched &&
+              signUpFG.get('lastName')?.hasError('required')
+                ? 'block'
+                : 'none'
+            "
+          >
+            This is a required field
+          </div>
+        </div>
+      </div>
+      <div class="form__field">
+        <p>Work Email</p>
+        <input type="text" formControlName="email" autocomplete="on" />
+        <div
+          class="validate"
+          [style.display]="
+            signUpFG.get('email')?.touched &&
+            signUpFG.get('email')?.hasError('required')
+              ? 'block'
+              : 'none'
+          "
+        >
+          This is a required field
+        </div>
+        <div
+          class="validate"
+          [style.display]="
+            signUpFG.get('email')?.touched &&
+            signUpFG.get('email')?.hasError('pattern')
+              ? 'block'
+              : 'none'
+          "
+        >
+          This is a required field
+        </div>
+      </div>
+
+      <div class="main_container--form--heading">
+        <div class="main_container--form--heading--title">Set up Password</div>
+        <div class="main_container--form--heading--line"></div>
+        <div class="main_container--form--heading--step">2</div>
+      </div>
+      <div class="input">
+        <div class="form__field">
+          <p>Create Password</p>
+          <input
+            [type]="!isCreatePasswordVisible ? 'password' : 'text'"
+            formControlName="password"
+            autocomplete="on"
+          />
+          <button
+            class="enableDisableButton"
+            type="button"
+            (click)="isCreatePasswordVisible = !isCreatePasswordVisible"
+          >
+            <div>
+              {{ !isCreatePasswordVisible ? "on" : "off" }}
+            </div>
+          </button>
+          <div class="password-validations">
+            <div class="validations">
+              <div
+                class="circle"
+                [style.background]="
+                  password?.value?.length >= 8 ? '#74d21c' : 'red'
+                "
+              ></div>
+              <div class="text">Minimum 8 chatacters</div>
+            </div>
+            <div class="validations">
+              <div
+                class="circle"
+                [style.background]="
+                  containsLowercase(password?.value) ? '#74d21c' : 'red'
+                "
+              ></div>
+              <div class="text">Lowercase</div>
+            </div>
+            <div class="validations">
+              <div
+                class="circle"
+                [style.background]="
+                  containsUpercase(password?.value) ? '#74d21c' : 'red'
+                "
+              ></div>
+              <div class="text">Uppercase</div>
+            </div>
+            <div class="validations">
+              <div
+                class="circle"
+                [style.background]="
+                  containsNumber(password?.value) ? '#74d21c' : 'red'
+                "
+              ></div>
+              <div class="text">Number</div>
+            </div>
+            <div class="validations">
+              <div
+                class="circle"
+                [style.background]="
+                  containsSpecialChars(password?.value) ? '#74d21c' : 'red'
+                "
+              ></div>
+              <div class="text">Special character</div>
+            </div>
+          </div>
+        </div>
+        <div class="form__field">
+          <p>Confirm Password</p>
+          <input
+            [type]="!isConfirmPasswordVisible ? 'password' : 'text'"
+            formControlName="confirmPassword"
+            autocomplete="on"
+          />
+          <button
+            class="enableDisableButton"
+            type="button"
+            (click)="isConfirmPasswordVisible = !isConfirmPasswordVisible"
+          >
+            <div>
+              {{ !isConfirmPasswordVisible ? "on" : "off" }}
+            </div>
+          </button>
+          <div class="password-validations">
+            <div class="validations">
+              <div
+                class="circle"
+                [style.background]="passwordMatch() ? '#74d21c' : 'red'"
+              ></div>
+              <div class="text">Matched</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="checkbox">
+        <input type="checkbox" autocomplete="on" formControlName="checkbox" />
+        <div class="checkbox__text">
+          I agree, on behalf of the corporation identified in the application,
+          to be bound by the terms of the
+          <a href="">Platform Agreement</a> and <a href="">Privacy Policy</a>
+          . I have the authority to bind the corporation.
+        </div>
+      </div>
+      <div class="captcha">
+        <re-captcha
+          id="recaptcha"
+          formControlName="recaptcha"
+          required
+        ></re-captcha>
+        <div
+          class="validate"
+          [style.display]="
+            signUpFG.get('recaptcha')?.touched &&
+            signUpFG.get('recaptcha')?.hasError('required')
+              ? 'block'
+              : 'none'
+          "
+        >
+          This is a required field
+        </div>
+      </div>
+
+      <div class="buttons">
+        <div class="arrow">
+          <img src="../../assets/images/svg/arrow.svg" alt="back" />
+          <button class="back">Back</button>
+        </div>
+        <button
+          class="signUp"
+          (click)="signup()"
+          [disabled]="!signUpFG.valid"
+          [style.background-color]="
+            signUpFG.invalid ? 'transparent' : ' rgb(96, 67, 182)'
+          "
+          [style.color]="signUpFG.invalid ? '' : 'white'"
+        >
+          Sign Up
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

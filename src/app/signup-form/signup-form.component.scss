@@ -1,0 +1,233 @@
+.main {
+  height: 100vh;
+  &_container {
+    padding: 0px 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    &--title {
+      margin-top: 60px;
+      img {
+        height: 42px;
+      }
+    }
+    &--form {
+      width: 100%;
+      width: 465px;
+      height: 655px;
+      padding-bottom: 60px;
+      padding: 11px 32px 32px 32px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: rgb(226 226 226 / 50%) 0px 10px 10px 3px;
+      &--heading {
+        display: flex;
+        align-items: center;
+        padding-bottom: 16px;
+        padding-top: 18px;
+        font-family: Inter, sans-serif;
+        gap: 10px;
+        &--title {
+          font-size: 20px;
+          letter-spacing: -1.1px;
+          width: 150px;
+        }
+        &--line {
+          border: 1px solid rgb(232, 233, 235);
+          height: 0px;
+          width: 66%;
+        }
+        &--step {
+          width: 32px;
+          height: 30px;
+          font-size: 14px;
+          border: 2px solid rgb(232, 233, 235);
+          justify-content: center;
+          align-items: center;
+          display: flex;
+          border-radius: 100%;
+        }
+      }
+      .input {
+        display: flex;
+        gap: 21px 6.6%;
+        padding-bottom: 16px;
+        .form__field {
+          width: 46.7%;
+          height: 88px;
+          p {
+            color: rgb(84, 87, 90);
+          }
+          input {
+            width: 83%;
+            height: 28px;
+            padding: 9.3px 20px 9.3px 19.2px;
+            font-family: Roboto;
+            font-size: 22px;
+            line-height: 1.14;
+            outline: none;
+            border: none;
+            border: solid 2px rgb(239, 239, 239);
+            border-radius: 5px;
+            font-size: 15px;
+            position: relative;
+          }
+          .enableDisableButton {
+            position: absolute;
+            right: 0;
+            top: 53%;
+          }
+          .validate {
+            color: rgb(236, 9, 9);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            font-family: Inter, sans-serif;
+            font-style: italic;
+            font-size: 10px;
+          }
+          .password-validations {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            width: 100%;
+            padding-top: 10px;
+            .validations {
+              display: flex;
+              align-items: center;
+              gap: 5px;
+              margin-right: 15px;
+              .circle {
+                width: 8px;
+                height: 8px;
+                background-color: #74d21c;
+                border-radius: 100%;
+              }
+              .text {
+                font-family: Roboto;
+                font-size: 10px;
+                line-height: 1.56;
+                color: #363636;
+              }
+            }
+          }
+        }
+      }
+      .checkbox {
+        display: flex;
+        gap: 15px;
+        align-items: baseline;
+        margin-top: 55px;
+
+        &__text {
+          font-size: 13px;
+          font-family: Inter, sans-serif;
+          color: rgb(84, 87, 90);
+          font-weight: 400;
+          line-height: 1.5;
+          a {
+          }
+        }
+      }
+      .captcha {
+        display: flex;
+        justify-content: center;
+        padding-top: 16px;
+      }
+      .validate {
+        color: rgb(236, 9, 9);
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        font-family: Inter, sans-serif;
+        font-style: italic;
+        font-size: 10px;
+      }
+      .form__field {
+        height: 88px;
+        position: relative;
+        p {
+          color: rgb(84, 87, 90);
+        }
+        input {
+          height: 28px;
+          padding: 9.3px 20px 9.3px 19.2px;
+          font-family: Roboto;
+          font-size: 22px;
+          line-height: 1.14;
+          outline: none;
+          border: none;
+          border: solid 2px rgb(239, 239, 239);
+          border-radius: 5px;
+          width: 92%;
+          font-size: 15px;
+        }
+        .validate {
+          color: rgb(236, 9, 9);
+          font-weight: bold;
+          display: flex;
+          align-items: center;
+          font-family: Inter, sans-serif;
+          font-style: italic;
+          font-size: 10px;
+        }
+      }
+      .buttons {
+        display: flex;
+        justify-content: space-between;
+        width: 532px;
+        margin-top: 70px;
+        padding-bottom: 60px;
+        margin-left: -35px;
+        .arrow {
+          border-radius: 5px;
+          align-items: center;
+          display: flex;
+
+          .back {
+            border: 0px;
+            margin: 0px;
+            cursor: pointer;
+            user-select: none;
+            appearance: none;
+            text-decoration: none;
+            font-family: Inter, sans-serif;
+            line-height: 1.75;
+            min-width: 64px;
+            padding: 6px 8px;
+            border-radius: 4px;
+            transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+              box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+              border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+              color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+            text-transform: capitalize;
+            font-weight: 700;
+            color: rgb(84, 87, 90);
+            font-size: 16px;
+            background-color: transparent;
+          }
+
+          &:hover {
+            box-shadow: rgb(0 0 0 / 15%) 1px 1px;
+          }
+        }
+
+        .signUp {
+          font-size: 16px;
+          min-width: 160px;
+          height: 48px;
+          background-color: white;
+          color: rgb(112, 112, 112);
+          border-width: 1px;
+          border-style: solid;
+          border-color: rgb(112, 112, 112);
+          border-radius: 4px;
+          font-size: 16px;
+          font-weight: 900;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
