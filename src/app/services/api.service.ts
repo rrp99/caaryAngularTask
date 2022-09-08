@@ -7,38 +7,24 @@ import { catchError } from 'rxjs/operators';
 export class ApiService {
   constructor(
     protected httpClient: HttpClient,
-    @Inject('BASE_URL') public baseUrl: any
+    @Inject('BASE_URL') public baseUrl
   ) {}
 
   httpOptions = {
     headers: new HttpHeaders({}),
   };
 
-  /**
-   * Get Base Url
-   * @param uri string
-   */
-  getBaseUrl(): any {
+  getBaseUrl() {
     return this.baseUrl;
   }
 
-  /**
-   * POST request
-   */
-  post(uri: string, data: any): Observable<any> {
-    // this.httpOptions.headers.append('oauth-token', '');
+  post(uri: string, data): Observable<any> {
     return this.httpClient
       .post(this.getBaseUrl() + uri, data, this.httpOptions)
       .pipe(catchError((err) => this.handleError(err)));
   }
 
-  /**
-   * Handle general errors from the API
-   *
-   * @param err
-   * @returns {ErrorObservable}
-   */
-  private handleError(err: any) {
+  private handleError(err) {
     return observableThrowError(err);
   }
 }

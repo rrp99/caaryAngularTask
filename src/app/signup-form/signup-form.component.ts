@@ -1,23 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { Regex } from '../../app/constants/constant';
 import { Subscription } from 'rxjs';
 import { SignupService } from '../services/signup.service';
+import { SignUpData } from '../model/signup.model';
 @Component({
   selector: 'app-signup-form',
   templateUrl: './signup-form.component.html',
   styleUrls: ['./signup-form.component.scss'],
 })
 export class SignupFormComponent implements OnInit {
-  signUpFG!: FormGroup;
+  signUpFG: FormGroup;
   isCreatePasswordVisible = false;
   isConfirmPasswordVisible = false;
   private subscription = new Subscription();
-
+  signupData: SignUpData;
   constructor(
     private formBuilder: FormBuilder,
-    private httpClient: HttpClient,
     private signupService: SignupService
   ) {}
 
@@ -54,20 +53,20 @@ export class SignupFormComponent implements OnInit {
     return this.signUpFG?.get('confirmPassword');
   }
 
-  containsSpecialChars(str: any) {
+  containsSpecialChars(str) {
     const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
     return specialChars.test(str);
   }
 
-  containsNumber(str: any) {
+  containsNumber(str) {
     return /\d/.test(str);
   }
 
-  containsLowercase(str: any) {
+  containsLowercase(str) {
     return /[a-z]/g.test(str);
   }
 
-  containsUpercase(str: any) {
+  containsUpercase(str) {
     return /[A-Z]/g.test(str);
   }
 
@@ -79,26 +78,24 @@ export class SignupFormComponent implements OnInit {
   }
 
   signup() {
-    if (!this.signUpFG.valid) {
+    if (this.signUpFG.invalid) {
       this.signUpFG.markAllAsTouched();
       return;
     }
     const data = {
-      email: this.signUpFG.getRawValue().email,
-      firstName: this.signUpFG.getRawValue().firstName,
-      lastName: this.signUpFG.getRawValue().lastName,
-      password: this.signUpFG.getRawValue().password,
+      ...this.signupService.mapSignupData(this.signUpFG.getRawValue()),
     };
 
     this.subscription.add(
       this.signupService.signup(data).subscribe(
-        (response: any) => {
+        (response) => {
           console.log(response);
-          alert('Signup successfull');
+          alert('');
+          this.signupData = new SignUpData().deserialize(response);
         },
-        (error: any) => {
+        ({ error }) => {
           console.log(error);
-          alert('Unable to signup');
+          alert(error.message);
         }
       )
     );
