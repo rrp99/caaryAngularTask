@@ -13,6 +13,9 @@ import {
   RecaptchaSettings,
 } from 'ng-recaptcha';
 import { environment } from 'src/environments/environment';
+import { SignupService } from './services/signup.service';
+import { ApiService } from './services/api.service';
+import interceptor from './configs/interceptor';
 
 @NgModule({
   declarations: [AppComponent, SignupFormComponent],
@@ -33,7 +36,9 @@ import { environment } from 'src/environments/environment';
         siteKey: environment.recaptcha.siteKey,
       } as RecaptchaSettings,
     },
-    
+    SignupService,
+    ApiService,
+    interceptor,
   ],
   bootstrap: [AppComponent],
 })

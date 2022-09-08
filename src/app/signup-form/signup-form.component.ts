@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Regex } from '../../app/constants/constant';
+import { Subscription } from 'rxjs';
+import { SignupService } from '../services/signup.service';
 @Component({
   selector: 'app-signup-form',
   templateUrl: './signup-form.component.html',
@@ -11,10 +13,12 @@ export class SignupFormComponent implements OnInit {
   signUpFG!: FormGroup;
   isCreatePasswordVisible = false;
   isConfirmPasswordVisible = false;
+  private subscription = new Subscription();
 
   constructor(
     private formBuilder: FormBuilder,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private signupService: SignupService
   ) {}
 
   ngOnInit(): void {
@@ -75,19 +79,28 @@ export class SignupFormComponent implements OnInit {
   }
 
   signup() {
-    const data = this.signUpFG.getRawValue();
-    this.httpClient
-      .post(
-        'https://app-usermgmt-stg-cc-001.azurewebsites.net/api/v1/user/register',
-        data
-      )
-      .subscribe(
-        (response) => {
+    if (!this.signUpFG.valid) {
+      this.signUpFG.markAllAsTouched();
+      return;
+    }
+    const data = {
+      email: this.signUpFG.getRawValue().email,
+      firstName: this.signUpFG.getRawValue().firstName,
+      lastName: this.signUpFG.getRawValue().lastName,
+      password: this.signUpFG.getRawValue().password,
+    };
+
+    this.subscription.add(
+      this.signupService.signup(data).subscribe(
+        (response: any) => {
           console.log(response);
+          alert('Signup successfull');
+        },
+        (error: any) => {
+          console.log(error);
+          alert('Unable to signup');
         }
-        // (error) => {
-        //   console.log(error);
-        // }
-      );
+      )
+    );
   }
 }

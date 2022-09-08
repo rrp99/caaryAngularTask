@@ -7,6 +7,7 @@ export const environment = {
   recaptcha: {
     siteKey: '6LfVat0hAAAAANYObiYyr2BRqWa5tANMNGT4-_Ts',
   },
+  base_url: 'https://app-usermgmt-stg-cc-001.azurewebsites.net',
 };
 
 /*

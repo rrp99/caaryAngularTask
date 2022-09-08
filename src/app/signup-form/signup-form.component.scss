@@ -132,8 +132,9 @@
       }
       .captcha {
         display: flex;
-        justify-content: center;
+        flex-direction: column;
         padding-top: 16px;
+        align-items: center;
       }
       .validate {
         color: rgb(236, 9, 9);
